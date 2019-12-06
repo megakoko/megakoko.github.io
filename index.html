@@ -239,16 +239,26 @@
 			minusButton.innerHTML = "−" + questionName
 		}
 
-		function test() {
-			score[0][4] = -1
-			score[0][6] = 1
-			console.log(score)
-			addSubject()
-		}
-
 		function assignRandomScores() {
 			var scoreTrs = document.getElementsByClassName("score")
+			for (i = 0; i < scoreTrs.length; ++i) {
+				var scoreTr = scoreTrs[i]
+				var playerTds = scoreTr.querySelectorAll('[player]')
+				var question = (parseInt(scoreTr.getAttribute("data-question")) + 1)*10
 
+				for(player = 0; player < playerTds.length; ++player) {
+					var score = Math.random()
+					var td = playerTds[player]
+					if (score < 0.1) {
+						td.innerHTML = "−" + question
+						td.setAttribute("class", "negative")
+					} else if (score < 0.2) {
+						td.innerHTML = "+" + question
+						td.setAttribute("class", "positive")
+						break
+					}
+				}
+			}
 		}
 
 		setTimeout(addSubject, 100)
@@ -257,14 +267,10 @@
 		setTimeout(addSubject, 200)
 		setTimeout(addSubject, 200)
 
-		setTimeout(assignRandomScores, 200)
+		setTimeout(assignRandomScores, 300)
 	</script>
 </head>
 <body>
-
-	<!-- <button onclick="test()">Test</button> -->
-
-
 	<table id="main" cellspacing="0">
 		<tr>
 			<td></td>
