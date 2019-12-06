@@ -6,130 +6,132 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<style type="text/css">
-		/* DEBUG STYLES */
-		table {
-			/*border: 1px solid gray;*/
-		}
-		td {
-			/*border: 1px solid gray;*/
-		}
+		@media (max-width: 500px) {
+			/* DEBUG STYLES */
+			table {
+				/*border: 1px solid gray;*/
+			}
+			td {
+				/*border: 1px solid gray;*/
+			}
 
 
-		* {
-			font-family: Arial;
-			padding: 0;
-			margin: 0;
-		}
+			* {
+				font-family: Arial;
+				padding: 0;
+				margin: 0;
+			}
 
 
-		body {
-			background: #f0f0f0;
-		}
+			body {
+				background: #f0f0f0;
+			}
 
 
-		table#main .avatar {
-			min-width:	30px;
-			min-height:	30px;
-			max-width:	30px;
-			max-height:	30px;
-		}
-		div#controls .avatar {
-			min-width:	50px;
-			min-height:	50px;
-			max-width:	50px;
-			max-height:	50px;
-			margin: 5px;
-		}
+			table#main .avatar {
+				min-width:	30px;
+				min-height:	30px;
+				max-width:	30px;
+				max-height:	30px;
+			}
+			div#controls .avatar {
+				min-width:	50px;
+				min-height:	50px;
+				max-width:	50px;
+				max-height:	50px;
+				margin: 5px;
+			}
 
-		.avatar {
-			margin: 5px;
-			border-radius: 5px;
-		}
-		.avatar.blue {
-			background: #1191CE;
-		}
-		.avatar.red {
-			background: #DA3B35;
-		}
-		.avatar.green {
-			background: #84B73E;
-		}
-		.avatar.yellow {
-			background: #EC9F01;
-		}
-
-
-		table#main {
-			width: 100%;
-			padding: 15px;
-			margin-bottom: 350px;
-		}
-		table#main tr td:first-child {
-			width: 10%;
-			text-align: center;
-		}
-		table#main tr.score.selected {
-			background: #ccc
-		}
-		table#main tr.score.selected td:first-child {
-			border-top-left-radius: 5px;
-			border-bottom-left-radius: 5px;
-		}
-		table#main tr.score.selected td:last-child {
-			border-top-right-radius: 5px;
-			border-bottom-right-radius: 5px;
-		}
-		table#main tr th p {
-			background: #ddd;
-			padding: 5px;
-			border-radius: 5px;
-			margin-top: 20px;
-		}
-		table#main tr.score {
-			line-height: 40px;
-		}
+			.avatar {
+				margin: 5px;
+				border-radius: 5px;
+			}
+			.avatar.blue {
+				background: #1191CE;
+			}
+			.avatar.red {
+				background: #DA3B35;
+			}
+			.avatar.green {
+				background: #84B73E;
+			}
+			.avatar.yellow {
+				background: #EC9F01;
+			}
 
 
-		div#controls {
-			background: #aaa;
-			position: fixed;
-			bottom: 0;
-			padding-bottom: 50px;
-			width: 100%;
-		}
-		div#controls p {
-			text-align: center;
-			margin: 20px 0;
-		}
-		div#controls table {
-			table-layout: fixed;
-			margin-bottom: 10px;
-			width: 100%;
-		}
-		div#controls .action-button {
-			background: white;
-			line-height: 50px;
-			border: none;
-			border-radius: 5px;
-			margin: 0 	10px;
-			font-weight: bold;
-			font-size: 25px;
-		}
-		div#controls .action-button:hover {
-			background: #ddd;
-		}
-		div#controls .avatar.selected {
-			border: 5px solid #333;
-			margin: 0;
-		}
-		.action-button.plus {
-			color: #84B73E;
-		}
-		.action-button.minus {
-			color: #DA3B35;
-		}
-		.action-button.clear {
-			color: #333;
+			table#main {
+				width: 100%;
+				padding: 15px;
+				margin-bottom: 350px;
+			}
+			table#main tr td:first-child {
+				width: 10%;
+				text-align: center;
+			}
+			table#main tr.score.selected {
+				background: #ccc
+			}
+			table#main tr.score.selected td:first-child {
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+			table#main tr.score.selected td:last-child {
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
+			table#main tr th p {
+				background: #ddd;
+				padding: 5px;
+				border-radius: 5px;
+				margin-top: 20px;
+			}
+			table#main tr.score {
+				line-height: 40px;
+			}
+
+
+			div#controls {
+				background: #aaa;
+				position: fixed;
+				bottom: 0;
+				padding-bottom: 50px;
+				width: 100%;
+			}
+			div#controls p {
+				text-align: center;
+				margin: 20px 0;
+			}
+			div#controls table {
+				table-layout: fixed;
+				margin-bottom: 10px;
+				width: 100%;
+			}
+			div#controls .action-button {
+				background: white;
+				line-height: 50px;
+				border: none;
+				border-radius: 5px;
+				margin: 0 	10px;
+				font-weight: bold;
+				font-size: 25px;
+			}
+			div#controls .action-button:hover {
+				background: #ddd;
+			}
+			div#controls .avatar.selected {
+				border: 5px solid #333;
+				margin: 0;
+			}
+			.action-button.plus {
+				color: #84B73E;
+			}
+			.action-button.minus {
+				color: #DA3B35;
+			}
+			.action-button.clear {
+				color: #333;
+			}
 		}
 	</style>
 	<script type="text/javascript">
