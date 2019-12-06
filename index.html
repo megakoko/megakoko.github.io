@@ -88,13 +88,23 @@
 		table#main tr.score {
 			line-height: 40px;
 		}
+		table#main tr.score td {
+			text-align: center;
+			font-weight: bold;
+		}
+		table#main tr.score td.positive {
+			color: #84B73E;
+		}
+		table#main tr.score td.negative {
+			color: #DA3B35;
+		}
 
 
 		div#controls {
 			background: #aaa;
 			position: fixed;
 			bottom: 0;
-			padding-bottom: 50px;
+			padding-bottom: 10px;
 			width: 100%;
 		}
 		div#controls p {
@@ -168,6 +178,7 @@
 
 				for(player = 0; player < 4; ++player) {
 					var td = document.createElement("td")
+					td.setAttribute("player", player)
 					tr.appendChild(td)
 				}
 			}
@@ -251,7 +262,7 @@
 </head>
 <body>
 
-	<button onclick="test()">Test</button>
+	<!-- <button onclick="test()">Test</button> -->
 
 
 	<table id="main" cellspacing="0">
@@ -271,7 +282,10 @@
 
 		<table>
 			<tr>
-				<td align="center"><div class="action-button">Дальше</div></td>
+				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar red"> </div></td>
+				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar blue"> </div></td>
+				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar yellow"> </div></td>
+				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar green"> </div></td>
 			</tr>
 		</table>
 		<table>
@@ -283,10 +297,7 @@
 		</table>
 		<table>
 			<tr>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar red"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar blue"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar yellow"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar green"> </div></td>
+				<td align="center"><div class="action-button">Дальше</div></td>
 			</tr>
 		</table>
 	</div>
