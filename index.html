@@ -116,30 +116,58 @@
 			margin-bottom: 10px;
 			width: 100%;
 		}
-		div#controls .action-button {
+
+		.action-buttons button {
 			background: white;
-			line-height: 50px;
+
 			border: none;
-			border-radius: 5px;
-			margin: 0 	10px;
-			font-weight: bold;
-			font-size: 25px;
+
+			min-width: 50px;
+			max-width: 50px;
+			line-height: 50px;
+
+
+			text-align: center;
+			vertical-align: middle;
+
+			font-size: 40px;
+			color: white;
+
+			display: block;
 		}
-		div#controls .action-button:hover {
-			background: #ddd;
-		}
-		div#controls .avatar.selected {
-			border: 5px solid #333;
-			margin: 0;
-		}
-		.action-button.plus {
+		.action-buttons button[data-type='plus'] {
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			border-bottom: 1px solid #aaa;
 			color: #84B73E;
 		}
-		.action-button.minus {
+		.action-buttons button[data-type='clear'] {
+			color: #999;
+		}
+		.action-buttons button[data-type='minus'] {
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			border-top: 1px solid #aaa;
 			color: #DA3B35;
 		}
-		.action-button.clear {
-			color: #333;
+
+		/*.action-buttons button[data-type='plus']:hover {
+			background: #e8f2d9;
+		}
+		.action-buttons button[data-type='clear']:hover {
+			background: #ddd;
+		}
+		.action-buttons button[data-type='minus']:hover {
+			background: #f7d5d4;
+		}*/
+
+		.action-buttons button[data-type='plus'].selected {
+			background: #84B73E;
+			color: white;
+		}
+		.action-buttons button[data-type='minus'].selected {
+			background: #DA3B35;
+			color: white;
 		}
 	</style>
 	<script type="text/javascript">
@@ -261,6 +289,23 @@
 			}
 		}
 
+		function onActionButtonClicked(button) {
+			let selected = button.getAttribute("class") == "selected"
+			if (selected) {
+				return
+			}
+			button.setAttribute("class", "selected")
+			console.log("Selected")
+
+			let siblings = button.parentNode.childNodes
+			for(let i = 0; i < siblings.length; ++i) {
+				let sibling = siblings[i]
+				if(sibling != button && sibling.nodeType == 1) {
+					sibling.setAttribute("class", "")
+				}
+			}
+		}
+
 		setTimeout(addSubject, 100)
 		setTimeout(addSubject, 200)
 		setTimeout(addSubject, 200)
@@ -282,28 +327,47 @@
 	</table>
 
 	<div id="controls">
-		<p id="current-question-description">
-			<!-- Тема 1 — Вопрос за 30 -->
-		</p>
-
+		<div>
+			<!-- <div>
+				Назад
+			</div> -->
+			<p id="current-question-description">
+				<!-- Тема 1 — Вопрос за 30 -->
+			</p>
+			<!-- <div>
+				Вперед
+			</div> -->
+		</div>
 		<table>
 			<tr>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar red"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar blue"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar yellow"> </div></td>
-				<td align="center"><div onclick="onActionAvatarClicked(this)" class="avatar green"> </div></td>
-			</tr>
-		</table>
-		<table>
-			<tr>
-				<td align="center"><div class="action-button minus" id="minus-button">−30</div></td>
-				<td align="center"><div class="action-button clear">0</div></td>
-				<td align="center"><div class="action-button plus" id="plus-button">+30</div></td>
-			</tr>
-		</table>
-		<table>
-			<tr>
-				<td align="center"><div class="action-button">Дальше</div></td>
+				<td align="center">
+					<div class="action-buttons">
+						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="plus">+</button>
+						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="clear">0</button>
+						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="minus">−</button>
+					</div>
+				</td>
+				<td align="center">
+					<div class="action-buttons">
+						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="plus">+</button>
+						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="clear">0</button>
+						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="minus">−</button>
+					</div>
+				</td>
+				<td align="center">
+					<div class="action-buttons">
+						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="plus">+</button>
+						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="clear">0</button>
+						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="minus">−</button>
+					</div>
+				</td>
+				<td align="center">
+					<div class="action-buttons">
+						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="plus">+</button>
+						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="clear">0</button>
+						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="minus">−</button>
+					</div>
+				</td>
 			</tr>
 		</table>
 	</div>
