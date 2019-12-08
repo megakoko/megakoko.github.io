@@ -238,6 +238,11 @@
 			}
 
 			this.setAttribute("id", "current-question")
+
+			var subject = parseInt(this.getAttribute("data-subject"))
+			var question = parseInt(this.getAttribute("data-question"))
+
+			onCurrentQuestionChanged(subject, question)
 		}
 
 		function onActionAvatarClicked(element) {
