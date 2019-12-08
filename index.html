@@ -119,19 +119,23 @@
 			background: #aaa;
 			position: fixed;
 			bottom: 0;
+			padding-top: 20px;
 			padding-bottom: 10px;
 			width: 100%;
 		}
-		div#controls #navigation {
-			margin: 20px 0;
+		div#controls #navigation button {
+			font-size: 30px;
+			font-weight: bold;
+			max-width: 50px;
+			min-width: 50px;
+			max-height: 50px;
+			min-height: 50px;
 		}
-		div#controls #navigation button,
 		div#controls #navigation span {
-			font-size: 15px;
+			font-size: 40px;
 		}
-		div#controls #navigation span {
-			width: 100%;
-			margin: 0 10px;
+		#current-subject-number {
+			color: #666;
 		}
 		div#controls #navigation button {
 			border: none;
@@ -331,11 +335,11 @@
 		}
 
 		function onCurrentQuestionChanged(subject, question) {
-			var subjectName = (subject + 1)
-			var questionName = (question + 1)*10
+			var subjectNumber = (subject + 1)
+			var questionNumber = (question + 1)*10
 
-			var description = document.getElementById("current-question-description")
-			description.innerHTML = "Тема " + subjectName + " — Вопрос за " + questionName
+			document.getElementById("current-subject-number").innerHTML = subjectNumber + "."
+			document.getElementById("current-question-number").innerHTML = questionNumber
 		}
 
 		function assignRandomScores() {
@@ -421,18 +425,25 @@
 	</table>
 
 	<div id="controls">
-		<div id="navigation" align="center">
-			<button onclick="prevQuestion()">
-				Назад
-			</button>
-			<span id="current-question-description">
-				Текущий вопрос
-			</span>
-			<button onclick="nextQuestion()">
-				Вперед
-			</button>
-		</div>
 		<table>
+			<tr id="navigation">
+				<td align="center">
+					<button id="back" onclick="prevQuestion()">
+						❮
+					</button>
+				</td>
+				<td colspan="2" align="middle">
+					<p><span id="current-subject-number">1.</span><span id="current-question-number">30</span></p>
+				</td>
+				<td align="center">
+					<button id="next" onclick="nextQuestion()">
+						❯
+					</button>
+				</td>
+			</tr>
+			<tr class="spacer">
+				<td></td>
+			</tr>
 			<tr>
 				<td align="center">
 					<div class="action-buttons">
