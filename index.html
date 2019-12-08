@@ -68,14 +68,14 @@
 			width: 10%;
 			text-align: center;
 		}
-		table#main tr.score.selected {
+		table#main tr.score#current-question {
 			background: #ccc
 		}
-		table#main tr.score.selected td:first-child {
+		table#main tr.score#current-question td:first-child {
 			border-top-left-radius: 5px;
 			border-bottom-left-radius: 5px;
 		}
-		table#main tr.score.selected td:last-child {
+		table#main tr.score#current-question td:last-child {
 			border-top-right-radius: 5px;
 			border-bottom-right-radius: 5px;
 		}
@@ -225,22 +225,12 @@
 		}
 
 		function onRowClicked() {
-			// console.log("clicked", this)
-
-			var table = document.getElementById("table")
-
-			var currentlySelectedTrs = document.getElementsByClassName("selected")
-			for (i = 0; i < currentlySelectedTrs.length; ++i) {
-				currentlySelectedTrs[i].setAttribute("class", "score")
+			var currentRow = document.getElementById("current-question")
+			if(currentRow != undefined) {
+				currentRow.setAttribute("id", "")
 			}
 
-			var tr = this
-			tr.setAttribute("class", "score selected")
-
-			var subject = parseInt(tr.getAttribute("data-subject"))
-			var question = parseInt(tr.getAttribute("data-question"))
-
-			onCurrentQuestionChanged(subject, question)
+			this.setAttribute("id", "current-question")
 		}
 
 		function onActionAvatarClicked(element) {
