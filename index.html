@@ -4,7 +4,7 @@
 	<title>Свояк — Таблица</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<style type="text/css">
 		/* DEBUG STYLES */
 		table {
@@ -140,21 +140,13 @@
 
 		.action-buttons button {
 			background: white;
-
 			border: none;
-
 			min-width: 50px;
 			max-width: 50px;
 			line-height: 50px;
-
-
-			text-align: center;
-			vertical-align: middle;
-
 			font-size: 40px;
-			color: white;
-
 			display: block;
+			touch-action: manipulation;
 		}
 		.action-buttons button[data-type='plus'] {
 			border-top-left-radius: 10px;
