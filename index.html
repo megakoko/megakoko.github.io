@@ -28,33 +28,22 @@
 
 
 		table#main .avatar {
-			min-width:	30px;
-			min-height:	30px;
-			max-width:	30px;
-			max-height:	30px;
-		}
-		div#controls .avatar {
-			min-width:	50px;
-			min-height:	50px;
-			max-width:	50px;
-			max-height:	50px;
-			margin: 5px;
-		}
-
-		.avatar {
-			margin: 5px;
+			min-width:	40px;
+			min-height:	40px;
+			max-width:	40px;
+			max-height:	40px;
 			border-radius: 5px;
 		}
-		.avatar.blue {
+		table#main .avatar[data-color="blue"] {
 			background: #1191CE;
 		}
-		.avatar.red {
+		table#main .avatar[data-color="red"] {
 			background: #DA3B35;
 		}
-		.avatar.green {
+		table#main .avatar[data-color="green"] {
 			background: #84B73E;
 		}
-		.avatar.yellow {
+		table#main .avatar[data-color="yellow"] {
 			background: #EC9F01;
 		}
 
@@ -381,6 +370,13 @@
 			}
 		}
 
+		function onAvatarClicked(avatar) {
+			let colors = ["red", "blue", "yellow", "green"]
+			let color = avatar.getAttribute("data-color")
+			let newColor = colors[(colors.indexOf(color) + 1) % 4]
+			avatar.setAttribute("data-color", newColor)
+		}
+
 		function onNameFocus(textField) {
 			textField.select()
 		}
@@ -416,10 +412,10 @@
 		<tbody id="avatars">
 			<tr>
 				<td></td>
-				<td align="center"><div class="avatar red"> </div><input type="text" value="Игрок 1" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar blue"> </div><input type="text" value="Игрок 2" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar yellow"> </div><input type="text" value="Игрок 3" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar green"> </div><input type="text" value="Игрок 4" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="red" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 1" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="blue" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 2" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="yellow" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 3" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="green" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 4" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
 			</tr>
 		</tbody>
 	</table>
