@@ -67,6 +67,7 @@
 		table#main tr td:first-child {
 			width: 10%;
 			text-align: center;
+			font-weight: bold;
 		}
 		table#main tr.score#current-question {
 			background: #ccc
@@ -84,14 +85,12 @@
 			color: white;
 			padding: 10px;
 			border-radius: 5px;
-			margin-top: 20px;
 		}
 		table#main tr.score {
 			line-height: 40px;
 		}
 		table#main tr.score td {
 			text-align: center;
-			font-weight: bold;
 		}
 		table#main tr.score[data-question] td {
 			border-bottom: 1px solid #ccc;
@@ -104,6 +103,15 @@
 		}
 		table#main tr.score td.negative {
 			color: #DA3B35;
+		}
+		table#main tr.total td {
+			margin-bottom: 20px;
+		}
+		table tr.spacer {
+			height: 30px;
+		}
+		table tr#grand-total td {
+			border-top: 5px double #ccc;
 		}
 
 
@@ -235,7 +243,7 @@
 			}
 
 			var totalRow = document.createElement("tr")
-			totalRow.setAttribute("class", "score")
+			totalRow.setAttribute("class", "score total")
 			table.appendChild(totalRow)
 			var totalDescription = document.createElement("td")
 			totalDescription.innerHTML = "Σ"
@@ -245,6 +253,11 @@
 				var td = document.createElement("td")
 				totalRow.appendChild(td)
 			}
+
+			var spacerRow = document.createElement("tr")
+			table.appendChild(spacerRow)
+			spacerRow.setAttribute("class", "spacer")
+			spacerRow.appendChild(document.createElement("td"))
 		}
 
 		function onRowClicked() {
@@ -386,6 +399,15 @@
 <body>
 	<table id="main" cellspacing="0">
 		<tbody id="questions">
+		</tbody>
+		<tbody>
+			<tr id="grand-total" class="score">
+				<td>ΣΣ</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 		</tbody>
 		<tbody id="avatars">
 			<tr>
