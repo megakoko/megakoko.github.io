@@ -182,6 +182,16 @@
 			background: #DA3B35;
 			color: white;
 		}
+
+		input {
+			background: transparent;
+			border: 1px solid transparent;
+			border-radius: 5px;
+			padding: 5px 0;
+			max-width: 70px;
+			font-size: 15px;
+			text-align: center;
+		}
 	</style>
 	<script type="text/javascript">
 		var score = [[], [], [], []]
@@ -354,6 +364,16 @@
 			}
 		}
 
+		function onNameFocus(textField) {
+			textField.select()
+		}
+
+		function onNameKeyDown(textField) {
+			if (event.key == "Enter") {
+				textField.blur()
+			}
+		}
+
 		setTimeout(addSubject, 100)
 		setTimeout(addSubject, 200)
 		setTimeout(addSubject, 200)
@@ -370,10 +390,10 @@
 		<tbody id="avatars">
 			<tr>
 				<td></td>
-				<td align="center"><div class="avatar red"> </div><p>Игрок 1</p></td>
-				<td align="center"><div class="avatar blue"> </div><p>Игрок 2</p></td>
-				<td align="center"><div class="avatar yellow"> </div><p>Игрок 3</p></td>
-				<td align="center"><div class="avatar green"> </div><p>Игрок 4</p></td>
+				<td align="center"><div class="avatar red"> </div><input type="text" value="Игрок 1" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar blue"> </div><input type="text" value="Игрок 2" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar yellow"> </div><input type="text" value="Игрок 3" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar green"> </div><input type="text" value="Игрок 4" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
 			</tr>
 		</tbody>
 	</table>
