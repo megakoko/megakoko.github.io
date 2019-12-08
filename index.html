@@ -114,9 +114,23 @@
 			padding-bottom: 10px;
 			width: 100%;
 		}
-		div#controls p {
-			text-align: center;
+		div#controls #navigation {
 			margin: 20px 0;
+		}
+		div#controls #navigation button,
+		div#controls #navigation span {
+			font-size: 15px;
+		}
+		div#controls #navigation span {
+			width: 100%;
+			margin: 0 10px;
+		}
+		div#controls #navigation button {
+			border: none;
+			border-radius: 10px;
+			background: white;
+			padding: 10px;
+			touch-action: manipulation;
 		}
 		div#controls table {
 			table-layout: fixed;
@@ -251,8 +265,54 @@
 			// avatar.setAttribute("class", avatar.getAttribute("class") + " selected")
 		}
 
-		function nextQuestion() {
+		function prevQuestion() {
+			let currentRow = document.getElementById("current-question")
+			if(currentRow == undefined) {
+				return
+			}
 
+			let currentSubject = parseInt(currentRow.getAttribute("data-subject"))
+			let currentQuestion = parseInt(currentRow.getAttribute("data-question"))
+
+			let nextSubject = currentSubject - (currentQuestion == 0 ? 1 : 0)
+			let nextQuestion = (5 + currentQuestion - 1) % 5
+
+			selectQuestion(nextSubject, nextQuestion)
+		}
+
+		function nextQuestion() {
+			let currentRow = document.getElementById("current-question")
+			if(currentRow == undefined) {
+				return
+			}
+
+			let currentSubject = parseInt(currentRow.getAttribute("data-subject"))
+			let currentQuestion = parseInt(currentRow.getAttribute("data-question"))
+
+			let nextSubject = currentSubject + (currentQuestion == 4 ? 1 : 0)
+			let nextQuestion = (currentQuestion + 1) % 5
+
+			if(nextSubject == subjectNumbers) {
+				addSubject()
+				window.scrollTo(0, document.body.scrollHeight);
+			}
+
+			selectQuestion(nextSubject, nextQuestion)
+		}
+
+		function selectQuestion(subject, question) {
+			let currentRow = document.getElementById("current-question")
+
+			let scoreTrs = document.getElementsByClassName("score")
+			for(let i = 0; i < scoreTrs.length; ++i) {
+				let scoreTr = scoreTrs[i]
+				if(scoreTr.getAttribute("data-subject") == subject && scoreTr.getAttribute("data-question") == question) {
+					currentRow.setAttribute("id", "")
+					scoreTr.setAttribute("id", "current-question")
+					onCurrentQuestionChanged(subject, question)
+					break
+				}
+			}
 		}
 
 		function onCurrentQuestionChanged(subject, question) {
@@ -327,16 +387,16 @@
 	</table>
 
 	<div id="controls">
-		<div>
-			<!-- <div>
+		<div id="navigation" align="center">
+			<button onclick="prevQuestion()">
 				Назад
-			</div> -->
-			<p id="current-question-description">
-				<!-- Тема 1 — Вопрос за 30 -->
-			</p>
-			<!-- <div>
+			</button>
+			<span id="current-question-description">
+				Текущий вопрос
+			</span>
+			<button onclick="nextQuestion()">
 				Вперед
-			</div> -->
+			</button>
 		</div>
 		<table>
 			<tr>
