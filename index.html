@@ -188,7 +188,7 @@
 
 			var subjectNumber = subjectNumbers++
 
-			var table = document.getElementById("main")
+			var table = document.getElementById("questions")
 
 			var subjectHeader = document.createElement("tr")
 			table.appendChild(subjectHeader)
@@ -308,13 +308,17 @@
 </head>
 <body>
 	<table id="main" cellspacing="0">
-		<tr>
-			<td></td>
-			<td align="center"><div class="avatar red"> </div><p>Игрок 1</p></td>
-			<td align="center"><div class="avatar blue"> </div><p>Игрок 2</p></td>
-			<td align="center"><div class="avatar yellow"> </div><p>Игрок 3</p></td>
-			<td align="center"><div class="avatar green"> </div><p>Игрок 4</p></td>
-		</tr>
+		<tbody id="questions">
+		</tbody>
+		<tbody id="avatars">
+			<tr>
+				<td></td>
+				<td align="center"><div class="avatar red"> </div><p>Игрок 1</p></td>
+				<td align="center"><div class="avatar blue"> </div><p>Игрок 2</p></td>
+				<td align="center"><div class="avatar yellow"> </div><p>Игрок 3</p></td>
+				<td align="center"><div class="avatar green"> </div><p>Игрок 4</p></td>
+			</tr>
+		</tbody>
 	</table>
 
 	<div id="controls">
