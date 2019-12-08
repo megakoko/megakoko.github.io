@@ -381,6 +381,10 @@
 			textField.select()
 		}
 
+		function onNameBlur(textField) {
+			textField.value = textField.value.replace(/\s+$/g,'');
+		}
+
 		function onNameKeyDown(textField) {
 			if (event.key == "Enter") {
 				textField.blur()
@@ -412,10 +416,10 @@
 		<tbody id="avatars">
 			<tr>
 				<td></td>
-				<td align="center"><div class="avatar" data-color="red" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 1" spellcheck="false" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="blue" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 2" spellcheck="false" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="yellow" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 3" spellcheck="false" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="green" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 4" spellcheck="false" onfocus="onNameFocus(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="red" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 1" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="blue" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 2" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="yellow" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 3" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-color="green" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 4" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
 			</tr>
 		</tbody>
 	</table>
