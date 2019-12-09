@@ -169,6 +169,7 @@
 
 			var table = document.getElementById("questions")
 
+			// Subject Header
 			var subjectHeader = document.createElement("tr")
 			table.appendChild(subjectHeader)
 			var td = document.createElement("th")
@@ -178,6 +179,7 @@
 			p.innerHTML = "Тема " + (subject+1)
 			td.appendChild(p)
 
+			// Subject questions
 			for(question = 0; question < 5; ++question) {
 				var tr = document.createElement("tr")
 				tr.setAttribute("class", "score")
@@ -201,6 +203,7 @@
 				}
 			}
 
+			// Subject total
 			var totalRow = document.createElement("tr")
 			totalRow.setAttribute("class", "score total")
 			table.appendChild(totalRow)
@@ -216,6 +219,7 @@
 				totalRow.appendChild(td)
 			}
 
+			// Spacer
 			var spacerRow = document.createElement("tr")
 			table.appendChild(spacerRow)
 			spacerRow.setAttribute("class", "spacer")
@@ -245,10 +249,10 @@
 			let currentSubject = parseInt(currentRow.getAttribute("data-subject"))
 			let currentQuestion = parseInt(currentRow.getAttribute("data-question"))
 
-			let nextSubject = currentSubject - (currentQuestion == 0 ? 1 : 0)
-			let nextQuestion = (5 + currentQuestion - 1) % 5
+			let prevSubject = currentSubject - (currentQuestion == 0 ? 1 : 0)
+			let prevQuestion = (5 + currentQuestion - 1) % 5
 
-			selectQuestion(nextSubject, nextQuestion)
+			selectQuestion(prevSubject, prevQuestion)
 		}
 
 		function nextQuestion() {
