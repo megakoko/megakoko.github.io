@@ -226,6 +226,10 @@
 				tr.setAttribute("data-question", question)
 				tr.onclick = onRowClicked
 				table.appendChild(tr)
+				if(subjectNumber == 0 && question == 0) {
+					tr.setAttribute("id", "current-question")
+					onCurrentQuestionChanged(subjectNumber, question)
+				}
 
 				var td = document.createElement("td")
 				tr.appendChild(td)
@@ -436,7 +440,7 @@
 					</button>
 				</td>
 				<td colspan="2" align="middle">
-					<p><span id="current-subject-number">1.</span><span id="current-question-number">30</span></p>
+					<p><span id="current-subject-number">1.</span><span id="current-question-number">10</span></p>
 				</td>
 				<td align="center">
 					<button id="next" onclick="nextQuestion()">
