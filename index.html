@@ -158,26 +158,11 @@
 			border-bottom: 1px solid #aaa;
 			color: #84B73E;
 		}
-		.action-buttons button[data-type='clear'] {
-			color: #999;
-		}
 		.action-buttons button[data-type='minus'] {
 			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
-			border-top: 1px solid #aaa;
 			color: #DA3B35;
 		}
-
-		/*.action-buttons button[data-type='plus']:hover {
-			background: #e8f2d9;
-		}
-		.action-buttons button[data-type='clear']:hover {
-			background: #ddd;
-		}
-		.action-buttons button[data-type='minus']:hover {
-			background: #f7d5d4;
-		}*/
-
 		.action-buttons button[data-type='plus'].selected {
 			background: #84B73E;
 			color: white;
@@ -362,11 +347,7 @@
 
 		function onActionButtonClicked(button) {
 			let selected = button.getAttribute("class") == "selected"
-			if (selected) {
-				return
-			}
-			button.setAttribute("class", "selected")
-			console.log("Selected")
+			button.setAttribute("class", selected ? "" : "selected")
 
 			let siblings = button.parentNode.childNodes
 			for(let i = 0; i < siblings.length; ++i) {
@@ -455,28 +436,24 @@
 				<td align="center">
 					<div class="action-buttons">
 						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="plus">+</button>
-						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="clear">0</button>
 						<button onclick="onActionButtonClicked(this)" data-player="0" data-type="minus">−</button>
 					</div>
 				</td>
 				<td align="center">
 					<div class="action-buttons">
 						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="plus">+</button>
-						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="clear">0</button>
 						<button onclick="onActionButtonClicked(this)" data-player="1" data-type="minus">−</button>
 					</div>
 				</td>
 				<td align="center">
 					<div class="action-buttons">
 						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="plus">+</button>
-						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="clear">0</button>
 						<button onclick="onActionButtonClicked(this)" data-player="2" data-type="minus">−</button>
 					</div>
 				</td>
 				<td align="center">
 					<div class="action-buttons">
 						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="plus">+</button>
-						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="clear">0</button>
 						<button onclick="onActionButtonClicked(this)" data-player="3" data-type="minus">−</button>
 					</div>
 				</td>
