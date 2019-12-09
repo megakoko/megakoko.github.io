@@ -236,12 +236,6 @@
 			onCurrentQuestionChanged(subject, question)
 		}
 
-		function onActionAvatarClicked(element) {
-			console.log("avatar selected", element)
-			var avatar = element
-			// avatar.setAttribute("class", avatar.getAttribute("class") + " selected")
-		}
-
 		function prevQuestion() {
 			let currentRow = document.getElementById("current-question")
 			if(currentRow == undefined) {
