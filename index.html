@@ -399,7 +399,21 @@
 			let colors = ["red", "blue", "yellow", "green"]
 			let color = avatar.getAttribute("data-color")
 			let newColor = colors[(colors.indexOf(color) + 1) % 4]
+			let player = parseInt(avatar.getAttribute("data-player"))
 			avatar.setAttribute("data-color", newColor)
+			localStorage.setItem("player" + player, newColor)
+		}
+
+		function loadAvatars() {
+			let avatars = document.querySelectorAll(".avatar")
+			for(let i = 0; i < avatars.length; ++i) {
+				let avatar = avatars[i]
+				let player = parseInt(avatar.getAttribute("data-player"))
+				let color = localStorage.getItem("player" + player)
+				if(color != undefined) {
+					avatar.setAttribute("data-color", color)
+				}
+			}
 		}
 
 		function onNameFocus(textField) {
@@ -418,6 +432,7 @@
 
 		window.addEventListener('load', function() {
 			addSubject()
+			loadAvatars()
 		})
 	</script>
 </head>
@@ -440,10 +455,10 @@
 		<tbody id="avatars">
 			<tr>
 				<td></td>
-				<td align="center"><div class="avatar" data-color="red" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 1" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="blue" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 2" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="yellow" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 3" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
-				<td align="center"><div class="avatar" data-color="green" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 4" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-player="0" data-color="red" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 1" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-player="1" data-color="blue" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 2" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-player="2" data-color="yellow" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 3" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
+				<td align="center"><div class="avatar" data-player="3" data-color="green" onclick="onAvatarClicked(this)"></div><input type="text" value="Игрок 4" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" /></td>
 			</tr>
 		</tbody>
 	</table>
