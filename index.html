@@ -162,14 +162,10 @@
 	</style>
 	<script type="text/javascript">
 		var score = [[], [], [], []]
-		var subjectNumbers = 0
+		var numberOfSubjects = 0
 
 		function addSubject() {
-			for (i = 0; i < 4; ++i) {
-				score[i]
-			}
-
-			var subjectNumber = subjectNumbers++
+			var subject = numberOfSubjects++
 
 			var table = document.getElementById("questions")
 
@@ -179,19 +175,19 @@
 			td.setAttribute("colSpan", 5)
 			subjectHeader.appendChild(td)
 			var p = document.createElement("p")
-			p.innerHTML = "Тема " + (subjectNumber+1)
+			p.innerHTML = "Тема " + (subject+1)
 			td.appendChild(p)
 
 			for(question = 0; question < 5; ++question) {
 				var tr = document.createElement("tr")
 				tr.setAttribute("class", "score")
-				tr.setAttribute("data-subject", subjectNumber)
+				tr.setAttribute("data-subject", subject)
 				tr.setAttribute("data-question", question)
 				tr.onclick = onRowClicked
 				table.appendChild(tr)
-				if(subjectNumber == 0 && question == 0) {
+				if(subject == 0 && question == 0) {
 					tr.setAttribute("id", "current-question")
-					onCurrentQuestionChanged(subjectNumber, question)
+					onCurrentQuestionChanged(subject, question)
 				}
 
 				var td = document.createElement("td")
@@ -216,7 +212,7 @@
 				var td = document.createElement("td")
 				td.innerHTML = "0"
 				td.setAttribute("data-player", player)
-				td.setAttribute("data-subject", subjectNumber)
+				td.setAttribute("data-subject", subject)
 				totalRow.appendChild(td)
 			}
 
@@ -273,7 +269,7 @@
 			let nextSubject = currentSubject + (currentQuestion == 4 ? 1 : 0)
 			let nextQuestion = (currentQuestion + 1) % 5
 
-			if(nextSubject == subjectNumbers) {
+			if(nextSubject == numberOfSubjects) {
 				addSubject()
 				window.scrollTo(0, document.body.scrollHeight);
 			}
@@ -297,11 +293,8 @@
 		}
 
 		function onCurrentQuestionChanged(subject, question) {
-			var subjectNumber = (subject + 1)
-			var questionNumber = (question + 1)*10
-
-			document.getElementById("current-subject-number").innerHTML = subjectNumber + "."
-			document.getElementById("current-question-number").innerHTML = questionNumber
+			document.getElementById("current-subject-number").innerHTML = (subject + 1) + "."
+			document.getElementById("current-question-number").innerHTML = (question + 1)*10
 
 			let buttons = document.querySelectorAll(".action-buttons button")
 			for(let i = 0; i < buttons.length; ++i) {
