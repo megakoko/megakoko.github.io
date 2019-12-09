@@ -222,7 +222,7 @@
 
 				for(player = 0; player < 4; ++player) {
 					var td = document.createElement("td")
-					td.setAttribute("player", player)
+					td.setAttribute("data-player", player)
 					tr.appendChild(td)
 				}
 			}
@@ -236,6 +236,9 @@
 
 			for(player = 0; player < 4; ++player) {
 				var td = document.createElement("td")
+				td.innerHTML = "0"
+				td.setAttribute("data-player", player)
+				td.setAttribute("data-subject", subjectNumber)
 				totalRow.appendChild(td)
 			}
 
@@ -321,13 +324,24 @@
 
 			document.getElementById("current-subject-number").innerHTML = subjectNumber + "."
 			document.getElementById("current-question-number").innerHTML = questionNumber
+
+			let buttons = document.querySelectorAll(".action-buttons button")
+			for(let i = 0; i < buttons.length; ++i) {
+				let button = buttons[i]
+
+				let player = parseInt(button.getAttribute("data-player"))
+				let buttonMultiplier = button.getAttribute("data-type") == "plus" ? 1 : -1
+
+				let selected = getAnswer(subject, question, player) == buttonMultiplier
+				button.setAttribute("class", selected ? "selected" : "")
+			}
 		}
 
 		function assignRandomScores() {
 			var scoreTrs = document.getElementsByClassName("score")
 			for (i = 0; i < scoreTrs.length; ++i) {
 				var scoreTr = scoreTrs[i]
-				var playerTds = scoreTr.querySelectorAll('[player]')
+				var playerTds = scoreTr.querySelectorAll('[data-player]')
 				var question = (parseInt(scoreTr.getAttribute("data-question")) + 1)*10
 
 				for(player = 0; player < playerTds.length; ++player) {
@@ -346,16 +360,94 @@
 		}
 
 		function onActionButtonClicked(button) {
+			let currentRow = document.getElementById("current-question")
+			if(currentRow == undefined) {
+				return
+			}
+
 			let selected = button.getAttribute("class") == "selected"
 			button.setAttribute("class", selected ? "" : "selected")
 
+			let multiplier = 0
 			let siblings = button.parentNode.childNodes
 			for(let i = 0; i < siblings.length; ++i) {
 				let sibling = siblings[i]
-				if(sibling != button && sibling.nodeType == 1) {
+				if(sibling.nodeType != 1) {
+					continue
+				}
+				if(sibling != button) {
 					sibling.setAttribute("class", "")
 				}
+				if(sibling.getAttribute("class") == "selected") {
+					multiplier = sibling.getAttribute("data-type") == "plus" ? 1 : -1
+				}
 			}
+
+			let subject = parseInt(currentRow.getAttribute("data-subject"))
+			let question = parseInt(currentRow.getAttribute("data-question"))
+			let player = parseInt(button.getAttribute("data-player"))
+			setCurrentAnswer(subject, question, player, multiplier)
+		}
+
+		function setCurrentAnswer(subject, question, player, multiplier) {
+			let index = subject * 5 + question
+			score[player][index] = multiplier
+
+			let cell = document.querySelector("tr[data-subject='" + subject + "'][data-question='" + question + "'] td[data-player='" + player + "']")
+			if(cell == undefined) {
+				return
+			}
+			let sign = multiplier > 0 ? "+" : "−"
+			let answerDescription = sign + (question + 1) * Math.abs(multiplier) * 10
+			let answerClass = multiplier > 0 ? "positive" : "negative"
+			cell.innerHTML = multiplier != 0 ? answerDescription : ""
+			cell.setAttribute("class", answerClass)
+
+			updateTotals(player)
+		}
+
+		function formatTotal(total, hardEarned) {
+			if(total > 0) {
+				return total
+			} else if(total < 0) {
+				return "−" + Math.abs(total)
+			} else {
+				return hardEarned ? "+0" : "0"
+			}
+		}
+
+		function updateTotals(player) {
+			let totalsCells = document.querySelectorAll("tr[class='score total'] td[data-player='" + player + "']")
+
+			let grandTotal = 0
+			let hardEarned = false
+			for(let i = 0; i < totalsCells.length; ++i) {
+				let totalCell = totalsCells[i]
+				let subject = parseInt(totalCell.getAttribute("data-subject"))
+
+				let firstScoreIndex = subject * 5
+				let lastScoreIndex = subject * 5 + 4
+				let total = 0
+				for(let scoreIndex = firstScoreIndex; scoreIndex <= lastScoreIndex; ++scoreIndex) {
+					let question = scoreIndex % 5
+					let multiplier = score[player][scoreIndex]
+					if(multiplier == undefined || multiplier == 0) {
+						continue
+					}
+
+					hardEarned = true
+					total += (question + 1) * 10 * multiplier
+				}
+				totalCell.innerHTML = formatTotal(total, hardEarned)
+				grandTotal += total
+			}
+			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
+			grandTotalCell.innerHTML = formatTotal(grandTotal, hardEarned)
+		}
+
+		function getAnswer(subject, question, player) {
+			let index = subject * 5 + question
+			return score[player][index]
 		}
 
 		function onAvatarClicked(avatar) {
@@ -395,10 +487,13 @@
 		<tbody>
 			<tr id="grand-total" class="score">
 				<td>ΣΣ</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td data-player="0">0</td>
+				<td data-player="1">0</td>
+				<td data-player="2">0</td>
+				<td data-player="3">0</td>
+			</tr>
+			<tr class="spacer">
+				<td> </td>
 			</tr>
 		</tbody>
 		<tbody id="avatars">
