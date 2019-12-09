@@ -89,7 +89,7 @@
 		}
 
 
-		div#controls {
+		#controls {
 			background: #aaa;
 			position: fixed;
 			bottom: 0;
@@ -97,62 +97,55 @@
 			padding-bottom: 10px;
 			width: 100%;
 		}
-		div#controls #navigation button {
-			font-size: 30px;
-			font-weight: bold;
+		#controls button {
 			max-width: 50px;
 			min-width: 50px;
 			max-height: 50px;
 			min-height: 50px;
-		}
-		div#controls #navigation span {
-			font-size: 40px;
-		}
-		div#controls #current-subject-number {
-			color: #666;
-		}
-		div#controls #navigation button {
+			background: white;
 			border: none;
 			border-radius: 10px;
-			background: white;
-			padding: 10px;
 			touch-action: manipulation;
 		}
-		div#controls table {
+		#controls #navigation button {
+			font-size: 30px;
+			font-weight: bold;
+		}
+		#controls #navigation span {
+			font-size: 40px;
+		}
+		#controls #current-subject-number {
+			color: #666;
+		}
+		#controls table {
 			table-layout: fixed;
 			margin-bottom: 10px;
 			width: 100%;
 		}
-		div#controls table tr.spacer {
+		#controls table tr.spacer {
 			height: 10px;
 		}
 
-		.action-buttons button {
-			background: white;
-			border: none;
-			min-width: 50px;
-			max-width: 50px;
-			line-height: 50px;
-			font-size: 40px;
+		#controls .action-buttons button {
 			display: block;
-			touch-action: manipulation;
+			font-size: 40px;
 		}
-		.action-buttons button[data-type='plus'] {
-			border-top-left-radius: 10px;
-			border-top-right-radius: 10px;
+		#controls .action-buttons button[data-type='plus'] {
 			border-bottom: 1px solid #aaa;
+			border-bottom-right-radius: 0;
+			border-bottom-left-radius: 0;
 			color: #84B73E;
 		}
-		.action-buttons button[data-type='minus'] {
-			border-bottom-left-radius: 10px;
-			border-bottom-right-radius: 10px;
+		#controls .action-buttons button[data-type='minus'] {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
 			color: #DA3B35;
 		}
-		.action-buttons button[data-type='plus'].selected {
+		#controls .action-buttons button[data-type='plus'].selected {
 			background: #84B73E;
 			color: white;
 		}
-		.action-buttons button[data-type='minus'].selected {
+		#controls .action-buttons button[data-type='minus'].selected {
 			background: #DA3B35;
 			color: white;
 		}
