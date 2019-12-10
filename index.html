@@ -374,7 +374,7 @@
 			let totalsCells = document.querySelectorAll("tr[class='score total'] td[data-player='" + player + "']")
 
 			let grandTotal = 0
-			let hardEarned = false
+			let scored = false
 			for(let i = 0; i < totalsCells.length; ++i) {
 				let totalCell = totalsCells[i]
 				let subject = parseInt(totalCell.getAttribute("data-subject"))
@@ -382,6 +382,7 @@
 				let firstScoreIndex = subject * 5
 				let lastScoreIndex = subject * 5 + 4
 				let total = 0
+				let scoredInSubject = false
 				for(let scoreIndex = firstScoreIndex; scoreIndex <= lastScoreIndex; ++scoreIndex) {
 					let question = scoreIndex % 5
 					let multiplier = score[player][scoreIndex]
@@ -389,14 +390,16 @@
 						continue
 					}
 
-					hardEarned = true
+					scored = true
+					scoredInSubject = true
+
 					total += (question + 1) * 10 * multiplier
 				}
-				totalCell.innerHTML = formatTotal(total, hardEarned)
+				totalCell.innerHTML = formatTotal(total, scoredInSubject)
 				grandTotal += total
 			}
 			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
-			grandTotalCell.innerHTML = formatTotal(grandTotal, hardEarned)
+			grandTotalCell.innerHTML = formatTotal(grandTotal, scored)
 		}
 
 		function getAnswer(subject, question, player) {
