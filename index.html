@@ -45,18 +45,6 @@
 		table#main .avatar[data-color="yellow"] {
 			background: #EC9F01;
 		}
-		table#main .avatar[data-color="blue"]:hover {
-			background: #0d75a5;
-		}
-		table#main .avatar[data-color="red"]:hover {
-			background: #ac2420;
-		}
-		table#main .avatar[data-color="green"]:hover {
-			background: #6e9834;
-		}
-		table#main .avatar[data-color="yellow"]:hover {
-			background: #cb8801;
-		}
 
 		table#main {
 			width: 100%;
@@ -67,10 +55,6 @@
 			width: 10%;
 			text-align: center;
 			font-weight: bold;
-		}
-		table#main tr.score[data-question]:hover  {
-			background: #ddd;
-			cursor: pointer;
 		}
 		table#main tr.score#current-question {
 			background: #ddd;
@@ -92,6 +76,7 @@
 		}
 		table#main tr.score[data-question] td {
 			border-bottom: 1px solid #ccc;
+			cursor: pointer;
 		}
 		table#main tr.score[data-question="4"] td {
 			border-bottom: 3px double #ccc;
@@ -138,9 +123,6 @@
 			font-size: 30px;
 			font-weight: bold;
 		}
-		#controls #navigation button:hover {
-			background: #ddd;
-		}
 		#controls #navigation span {
 			font-size: 40px;
 		}
@@ -171,12 +153,6 @@
 			border-top-right-radius: 0;
 			color: #DA3B35;
 		}
-		#controls .action-buttons button[data-type='plus']:hover {
-			background: #e8f2d9;
-		}
-		#controls .action-buttons button[data-type='minus']:hover {
-			background: #f7d5d4;
-		}
 		#controls .action-buttons button[data-type='plus'].selected {
 			background: #84B73E;
 			color: white;
@@ -184,12 +160,6 @@
 		#controls .action-buttons button[data-type='minus'].selected {
 			background: #DA3B35;
 			color: white;
-		}
-		#controls .action-buttons button[data-type='plus'].selected:hover {
-			background: #6e9834;
-		}
-		#controls .action-buttons button[data-type='minus'].selected:hover {
-			background: #ac2420;
 		}
 
 		input {
@@ -200,6 +170,42 @@
 			max-width: 70px;
 			font-size: 15px;
 			text-align: center;
+		}
+
+		@media (hover: hover) {
+			table#main .avatar[data-color="blue"]:hover {
+				background: #0d75a5;
+			}
+			table#main .avatar[data-color="red"]:hover {
+				background: #ac2420;
+			}
+			table#main .avatar[data-color="green"]:hover {
+				background: #6e9834;
+			}
+			table#main .avatar[data-color="yellow"]:hover {
+				background: #cb8801;
+			}
+
+			table#main tr.score[data-question]:hover  {
+				background: #ddd;
+			}
+
+			#controls #navigation button:hover {
+				background: #ddd;
+			}
+
+			#controls .action-buttons button[data-type='plus']:hover {
+				background: #e8f2d9;
+			}
+			#controls .action-buttons button[data-type='minus']:hover {
+				background: #f7d5d4;
+			}
+			#controls .action-buttons button[data-type='plus'].selected:hover {
+				background: #6e9834;
+			}
+			#controls .action-buttons button[data-type='minus'].selected:hover {
+				background: #ac2420;
+			}
 		}
 	</style>
 	<script type="text/javascript">
