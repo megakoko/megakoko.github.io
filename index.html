@@ -242,28 +242,31 @@
 		}
 	</style>
 	<script type="text/javascript">
-		var answers = [[], [], [], []]
+		var answers = []
 		var numberOfSubjects = 0
 
-		function reset() {
-			if(!confirm("Вы уверены, что хотите сбросить счет?")) {
+		function reset(needConfirmation) {
+			if(needConfirmation && !confirm("Вы уверены, что хотите сбросить счет?")) {
 				return
 			}
 
-			removeAllSubjects()
-			addSubject()
-		}
-
-		function removeAllSubjects() {
 			var table = document.getElementById("questions")
 			while(table.firstChild != undefined) {
 				table.removeChild(table.firstChild)
 			}
+
 			numberOfSubjects = 0
 			answers = [[], [], [], []]
 			for(let player = 0; player < 4; ++player) {
 				updateTotals(player)
 			}
+
+			let playerNameInputs = document.querySelectorAll("input[data-player]")
+			for(let player = 0; player < playerNameInputs.length; ++player) {
+				playerNameInputs[player].value = 'Игрок ' + (player+1)
+			}
+
+			addSubject()
 		}
 
 		function addSubject() {
@@ -502,13 +505,13 @@
 		}
 
 		window.addEventListener('load', function() {
-			addSubject()
+			reset(false)
 			loadAvatars()
 		})
 	</script>
 </head>
 <body>
-	<button id="reset" onclick="reset()">Сброс</button>
+	<button id="reset" onclick="reset(true)">Сброс</button>
 
 	<table id="main" cellspacing="0">
 		<tbody id="questions">
@@ -516,17 +519,17 @@
 		<tbody>
 			<tr id="grand-total" class="answer">
 				<td>Σ</td>
-				<td data-player="0">0</td>
-				<td data-player="1">0</td>
-				<td data-player="2">0</td>
-				<td data-player="3">0</td>
+				<td data-player="0"></td>
+				<td data-player="1"></td>
+				<td data-player="2"></td>
+				<td data-player="3"></td>
 			</tr>
 			<tr id="stats" class="answer">
 				<td>N</td>
-				<td data-player="0">—</td>
-				<td data-player="1">—</td>
-				<td data-player="2">—</td>
-				<td data-player="3">—</td>
+				<td data-player="0"></td>
+				<td data-player="1"></td>
+				<td data-player="2"></td>
+				<td data-player="3"></td>
 			</tr>
 			<tr class="spacer">
 				<td> </td>
@@ -537,19 +540,19 @@
 				<td></td>
 				<td align="center">
 					<div class="avatar" data-player="0" data-color="red" onclick="onAvatarClicked(this)"></div>
-					<input type="text" value="Игрок 1" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
+					<input type="text" data-player="0" value="" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
 				</td>
 				<td align="center">
 					<div class="avatar" data-player="1" data-color="blue" onclick="onAvatarClicked(this)"></div>
-					<input type="text" value="Игрок 2" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
+					<input type="text" data-player="1" value="" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
 				</td>
 				<td align="center">
 					<div class="avatar" data-player="2" data-color="yellow" onclick="onAvatarClicked(this)"></div>
-					<input type="text" value="Игрок 3" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
+					<input type="text" data-player="2" value="" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
 				</td>
 				<td align="center">
 					<div class="avatar" data-player="3" data-color="green" onclick="onAvatarClicked(this)"></div>
-					<input type="text" value="Игрок 4" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
+					<input type="text" data-player="3" value="" spellcheck="false" onfocus="onNameFocus(this)" onblur="onNameBlur(this)" onkeydown="onNameKeyDown(this)" />
 				</td>
 			</tr>
 		</tbody>
