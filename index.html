@@ -56,10 +56,10 @@
 			text-align: center;
 			font-weight: bold;
 		}
-		table#main tr.score#current-question {
+		table#main tr.answer#current-question {
 			background: #ddd;
 		}
-		table#main tr.score#current-question td {
+		table#main tr.answer#current-question td {
 			font-weight: bold;
 		}
 		table#main tr th p {
@@ -69,23 +69,23 @@
 			border-radius: 5px;
 			font-size: 130%;
 		}
-		table#main tr.score {
+		table#main tr.answer {
 			line-height: 40px;
 		}
-		table#main tr.score td {
+		table#main tr.answer td {
 			text-align: center;
 		}
-		table#main tr.score[data-question] td {
+		table#main tr.answer[data-question] td {
 			border-bottom: 1px solid #ccc;
 			cursor: pointer;
 		}
-		table#main tr.score[data-question="4"] td {
+		table#main tr.answer[data-question="4"] td {
 			border-bottom: none;
 		}
-		table#main tr.score td.positive {
+		table#main tr.answer td.positive {
 			color: #84B73E;
 		}
-		table#main tr.score td.negative {
+		table#main tr.answer td.negative {
 			color: #DA3B35;
 		}
 		table#main tr.total td {
@@ -210,7 +210,7 @@
 				background: #cb8801;
 			}
 
-			table#main tr.score[data-question]:hover  {
+			table#main tr.answer[data-question]:hover  {
 				background: #ddd;
 			}
 
@@ -237,7 +237,7 @@
 		}
 	</style>
 	<script type="text/javascript">
-		var score = [[], [], [], []]
+		var answers = [[], [], [], []]
 		var numberOfSubjects = 0
 
 		function reset() {
@@ -255,7 +255,7 @@
 				table.removeChild(table.firstChild)
 			}
 			numberOfSubjects = 0
-			score = [[], [], [], []]
+			answers = [[], [], [], []]
 			for(let player = 0; player < 4; ++player) {
 				updateTotals(player)
 			}
@@ -279,7 +279,7 @@
 			// Subject questions
 			for(question = 0; question < 5; ++question) {
 				var tr = document.createElement("tr")
-				tr.setAttribute("class", "score")
+				tr.setAttribute("class", "answer")
 				tr.setAttribute("data-subject", subject)
 				tr.setAttribute("data-question", question)
 				tr.onclick = onRowClicked
@@ -357,12 +357,12 @@
 		function selectQuestion(subject, question) {
 			let currentRow = document.getElementById("current-question")
 
-			let scoreTrs = document.getElementsByClassName("score")
-			for(let i = 0; i < scoreTrs.length; ++i) {
-				let scoreTr = scoreTrs[i]
-				if(scoreTr.getAttribute("data-subject") == subject && scoreTr.getAttribute("data-question") == question) {
+			let answerTrs = document.getElementsByClassName("answer")
+			for(let i = 0; i < answerTrs.length; ++i) {
+				let answerTr = answerTrs[i]
+				if(answerTr.getAttribute("data-subject") == subject && answerTr.getAttribute("data-question") == question) {
 					currentRow.setAttribute("id", "")
-					scoreTr.setAttribute("id", "current-question")
+					answerTr.setAttribute("id", "current-question")
 					onCurrentQuestionChanged(subject, question)
 					break
 				}
@@ -417,7 +417,7 @@
 
 		function setCurrentAnswer(subject, question, player, multiplier) {
 			let index = subject * 5 + question
-			score[player][index] = multiplier
+			answers[player][index] = multiplier
 
 			let cell = document.querySelector("tr[data-subject='" + subject + "'][data-question='" + question + "'] td[data-player='" + player + "']")
 			if(cell == undefined) {
@@ -443,11 +443,11 @@
 		}
 
 		function updateTotals(player) {
-			let totalsCells = document.querySelectorAll("tr[class='score total'] td[data-player='" + player + "']")
+			let totalsCells = document.querySelectorAll("tr[class='answer total'] td[data-player='" + player + "']")
 
-			let grandTotal = score[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer, 0)
-			let numberOfGivenAnswers = score[player].filter(s => s != 0).length
-			let numberOfCorrectAnswers = score[player].filter(s => s > 0).length
+			let grandTotal = answers[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer, 0)
+			let numberOfGivenAnswers = answers[player].filter(s => s != 0).length
+			let numberOfCorrectAnswers = answers[player].filter(s => s > 0).length
 
 			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
 			grandTotalCell.innerHTML = formatTotal(grandTotal, numberOfGivenAnswers > 0)
@@ -458,7 +458,7 @@
 
 		function getAnswer(subject, question, player) {
 			let index = subject * 5 + question
-			return score[player][index]
+			return answers[player][index]
 		}
 
 		function onAvatarClicked(avatar) {
@@ -509,14 +509,14 @@
 		<tbody id="questions">
 		</tbody>
 		<tbody>
-			<tr id="grand-total" class="score">
+			<tr id="grand-total" class="answer">
 				<td>Σ</td>
 				<td data-player="0">0</td>
 				<td data-player="1">0</td>
 				<td data-player="2">0</td>
 				<td data-player="3">0</td>
 			</tr>
-			<tr id="stats" class="score">
+			<tr id="stats" class="answer">
 				<td>N</td>
 				<td data-player="0">—</td>
 				<td data-player="1">—</td>
