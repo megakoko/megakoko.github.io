@@ -80,7 +80,7 @@
 			cursor: pointer;
 		}
 		table#main tr.score[data-question="4"] td {
-			border-bottom: 3px double #ccc;
+			border-bottom: none;
 		}
 		table#main tr.score td.positive {
 			color: #84B73E;
@@ -98,6 +98,11 @@
 		table tr#grand-total td {
 			border-top: 5px double #ccc;
 			font-weight: bold;
+		}
+		table tr#stats td {
+			color: #999;
+			font-size: 90%;
+			line-height: initial;
 		}
 
 
@@ -252,22 +257,6 @@
 				}
 			}
 
-			// Subject total
-			var totalRow = document.createElement("tr")
-			totalRow.setAttribute("class", "score total")
-			table.appendChild(totalRow)
-			var totalDescription = document.createElement("td")
-			totalDescription.innerHTML = "Σ"
-			totalRow.appendChild(totalDescription)
-
-			for(player = 0; player < 4; ++player) {
-				var td = document.createElement("td")
-				td.innerHTML = "0"
-				td.setAttribute("data-player", player)
-				td.setAttribute("data-subject", subject)
-				totalRow.appendChild(td)
-			}
-
 			// Spacer
 			var spacerRow = document.createElement("tr")
 			table.appendChild(spacerRow)
@@ -413,33 +402,15 @@
 		function updateTotals(player) {
 			let totalsCells = document.querySelectorAll("tr[class='score total'] td[data-player='" + player + "']")
 
-			let grandTotal = 0
-			let scored = false
-			for(let i = 0; i < totalsCells.length; ++i) {
-				let totalCell = totalsCells[i]
-				let subject = parseInt(totalCell.getAttribute("data-subject"))
+			let grandTotal = score[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer)
+			let numberOfGivenAnswers = score[player].filter(s => s != 0).length
+			let numberOfCorrectAnswers = score[player].filter(s => s > 0).length
 
-				let firstScoreIndex = subject * 5
-				let lastScoreIndex = subject * 5 + 4
-				let total = 0
-				let scoredInSubject = false
-				for(let scoreIndex = firstScoreIndex; scoreIndex <= lastScoreIndex; ++scoreIndex) {
-					let question = scoreIndex % 5
-					let multiplier = score[player][scoreIndex]
-					if(multiplier == undefined || multiplier == 0) {
-						continue
-					}
-
-					scored = true
-					scoredInSubject = true
-
-					total += (question + 1) * 10 * multiplier
-				}
-				totalCell.innerHTML = formatTotal(total, scoredInSubject)
-				grandTotal += total
-			}
 			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
-			grandTotalCell.innerHTML = formatTotal(grandTotal, scored)
+			grandTotalCell.innerHTML = formatTotal(grandTotal, numberOfGivenAnswers > 0)
+
+			let statsCell = document.querySelector("tr#stats td[data-player='" + player + "']")
+			statsCell.innerHTML = numberOfGivenAnswers > 0 ? (numberOfCorrectAnswers + ' / ' + numberOfGivenAnswers) : "—"
 		}
 
 		function getAnswer(subject, question, player) {
@@ -494,11 +465,18 @@
 		</tbody>
 		<tbody>
 			<tr id="grand-total" class="score">
-				<td>ΣΣ</td>
+				<td>Σ</td>
 				<td data-player="0">0</td>
 				<td data-player="1">0</td>
 				<td data-player="2">0</td>
 				<td data-player="3">0</td>
+			</tr>
+			<tr id="stats" class="score">
+				<td>N</td>
+				<td data-player="0">—</td>
+				<td data-player="1">—</td>
+				<td data-player="2">—</td>
+				<td data-player="3">—</td>
 			</tr>
 			<tr class="spacer">
 				<td> </td>
