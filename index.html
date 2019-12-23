@@ -168,6 +168,18 @@
 			color: white;
 		}
 
+		button#reset {
+			background: #DA3B35;
+			border: 1px solid transparent;
+			border-radius: 5px;
+			color: white;
+  			display: block;
+			font-size: 25px;
+			padding: 10px 40px;
+			margin: 10px auto;
+			cursor: pointer;
+		}
+
 		input {
 			background: #e4e4e4;
 			border: 3px solid transparent;
@@ -206,6 +218,10 @@
 				background: #ddd;
 			}
 
+			button#reset:hover {
+				background: #ac2420;
+			}
+
 			#controls .action-buttons button[data-type='plus']:hover {
 				background: #e8f2d9;
 			}
@@ -223,6 +239,27 @@
 	<script type="text/javascript">
 		var score = [[], [], [], []]
 		var numberOfSubjects = 0
+
+		function reset() {
+			if(!confirm("Вы уверены, что хотите сбросить счет?")) {
+				return
+			}
+
+			removeAllSubjects()
+			addSubject()
+		}
+
+		function removeAllSubjects() {
+			var table = document.getElementById("questions")
+			while(table.firstChild != undefined) {
+				table.removeChild(table.firstChild)
+			}
+			numberOfSubjects = 0
+			score = [[], [], [], []]
+			for(let player = 0; player < 4; ++player) {
+				updateTotals(player)
+			}
+		}
 
 		function addSubject() {
 			var subject = numberOfSubjects++
@@ -408,7 +445,7 @@
 		function updateTotals(player) {
 			let totalsCells = document.querySelectorAll("tr[class='score total'] td[data-player='" + player + "']")
 
-			let grandTotal = score[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer)
+			let grandTotal = score[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer, 0)
 			let numberOfGivenAnswers = score[player].filter(s => s != 0).length
 			let numberOfCorrectAnswers = score[player].filter(s => s > 0).length
 
@@ -466,6 +503,8 @@
 	</script>
 </head>
 <body>
+	<button id="reset" onclick="reset()">Сброс</button>
+
 	<table id="main" cellspacing="0">
 		<tbody id="questions">
 		</tbody>
