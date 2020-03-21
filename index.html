@@ -219,7 +219,7 @@
 				background: #ddd;
 			}
 
-			#controls #navigation button:hover {
+			#controls button:hover {
 				background: #ddd;
 			}
 
@@ -227,12 +227,65 @@
 				background: #ac2420;
 			}
 
-			#controls .action-buttons button[data-type='plus']:hover {
-				background: #e8f2d9;
+			#controls .action-buttons button[data-type='plus'].selected:hover {
+				background: #6e9834;
 			}
-			#controls .action-buttons button[data-type='minus']:hover {
-				background: #f7d5d4;
+			#controls .action-buttons button[data-type='minus'].selected:hover {
+				background: #ac2420;
 			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			body {
+				background: black;
+				color: white;
+			}
+
+			table#main tr.answer#current-question {
+				background: #444;
+			}
+			table#main tr th p {
+				background: #222;
+			}
+
+			table#main tr.answer[data-question] td {
+				border-bottom-color: #555;
+			}
+
+			table tr#grand-total td {
+				border-top-color: #555;
+			}
+
+			#controls {
+				background: #000;
+				border-top: 1px solid #555;
+			}
+			#controls button {
+				background: #222;
+				color: white;
+			}
+			#controls .action-buttons button[data-type='plus'] {
+				border-bottom-color: #555;
+			}
+
+			input {
+				background: #333;
+				color: white;
+			}
+			input:focus {
+				background-color: #111;
+			}
+		}
+
+		@media (hover: hover) and (prefers-color-scheme: dark) {
+			table#main tr.answer[data-question]:hover  {
+				background: #444;
+			}
+
+			#controls button:hover {
+				background: #111;
+			}
+
 			#controls .action-buttons button[data-type='plus'].selected:hover {
 				background: #6e9834;
 			}
