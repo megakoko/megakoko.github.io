@@ -105,10 +105,11 @@
 			border-top: 5px double #ccc;
 			font-weight: bold;
 		}
-		table tr#stats td {
+		table tr.stats td {
 			color: #999;
 			font-size: 90%;
-			line-height: initial;
+			line-height: 25px;
+			text-align: center;
 		}
 
 
@@ -504,17 +505,31 @@
 		}
 
 		function updateTotals(player) {
-			let totalsCells = document.querySelectorAll("tr[class='answer total'] td[data-player='" + player + "']")
+			let positiveTotal = 0
+			let negativeTotal = 0
+			answers[player].forEach( (answer,index) => {
+				let value = ((index % 5) + 1) * answer * 10
+				if(value > 0)
+					positiveTotal += value
+				else
+					negativeTotal += value
+			});
+			let grandTotal = positiveTotal + negativeTotal
 
-			let grandTotal = answers[player].map((s,i) => ((i%5)+1) * s * 10).reduce((sum, answer) => sum + answer, 0)
 			let numberOfGivenAnswers = answers[player].filter(s => s != 0).length
 			let numberOfCorrectAnswers = answers[player].filter(s => s > 0).length
 
 			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
 			grandTotalCell.innerHTML = formatTotal(grandTotal, numberOfGivenAnswers > 0)
 
-			let statsCell = document.querySelector("tr#stats td[data-player='" + player + "']")
-			statsCell.innerHTML = numberOfGivenAnswers > 0 ? (numberOfCorrectAnswers + ' / ' + numberOfGivenAnswers) : "—"
+			let positiveTotalCell = document.querySelector("tr#positive-total td[data-player='" + player + "']");
+			positiveTotalCell.innerHTML = formatTotal(positiveTotal)
+
+			let negativeTotalCell = document.querySelector("tr#negative-total td[data-player='" + player + "']");
+			negativeTotalCell.innerHTML = formatTotal(negativeTotal)
+
+			let answerRatioCell = document.querySelector("tr#answer-ratio td[data-player='" + player + "']")
+			answerRatioCell.innerHTML = numberOfGivenAnswers > 0 ? (numberOfCorrectAnswers + ' / ' + numberOfGivenAnswers) : "—"
 		}
 
 		function getAnswer(subject, question, player) {
@@ -577,7 +592,21 @@
 				<td data-player="2"></td>
 				<td data-player="3"></td>
 			</tr>
-			<tr id="stats" class="answer">
+			<tr id="positive-total" class="stats">
+				<td>+</td>
+				<td data-player="0"></td>
+				<td data-player="1"></td>
+				<td data-player="2"></td>
+				<td data-player="3"></td>
+			</tr>
+			<tr id="negative-total" class="stats">
+				<td>−</td>
+				<td data-player="0"></td>
+				<td data-player="1"></td>
+				<td data-player="2"></td>
+				<td data-player="3"></td>
+			</tr>
+			<tr id="answer-ratio" class="stats">
 				<td>N</td>
 				<td data-player="0"></td>
 				<td data-player="1"></td>
