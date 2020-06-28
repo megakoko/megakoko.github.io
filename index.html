@@ -24,11 +24,24 @@
 			background: white;
 		}
 
+		table#top-controls,
 		table#main,
 		div#controls table {
 			max-width: 500px;
 			margin-left: auto;
 			margin-right: auto;
+		}
+
+		table#top-controls {
+			padding: 0 15px;
+		}
+		table#top-controls td {
+			width: 100%;
+		}
+		table#top-controls td:first-child,
+		table#top-controls td:last-child {
+			width: inherit;
+			min-width: 100px;
 		}
 
 		table#main .avatar {
@@ -177,14 +190,30 @@
 
 		button#reset {
 			background: #da3b35;
-			border: 1px solid transparent;
 			border-radius: 5px;
+			border: 1px solid transparent;
 			color: white;
-  			display: block;
-			font-size: 25px;
-			padding: 10px 40px;
-			margin: 20px auto;
 			cursor: pointer;
+			font-size: 25px;
+			margin: 20px auto;
+			padding: 10px 40px;
+  			display: block;
+		}
+		button#toggle-controls {
+			background: #ddd;
+			border-radius: 5px;
+			border: 2px solid transparent;
+			color: #333;
+			cursor: pointer;
+			display: block;
+			float: right;
+			font-size: 20px;
+			margin: 0 auto;
+			padding: 5px 12px;
+		}
+		button#toggle-controls.checked {
+			border-color: #da3b35;
+			color: #da3b35;
 		}
 
 		input {
@@ -227,6 +256,9 @@
 			button#reset:hover {
 				background: #ac2420;
 			}
+			button#toggle-controls:hover {
+				background: #ccc;
+			}
 
 			#controls .action-buttons button[data-type='plus'].selected:hover {
 				background: #6e9834;
@@ -257,6 +289,11 @@
 				border-top-color: #555;
 			}
 
+			button#toggle-controls {
+				background: #333;
+				color: #ccc;
+			}
+
 			#controls {
 				background: #000;
 				border-top: 1px solid #555;
@@ -281,6 +318,10 @@
 		@media (hover: hover) and (prefers-color-scheme: dark) {
 			table#main tr.answer[data-question]:hover  {
 				background: #444;
+			}
+
+			button#toggle-controls:hover {
+				background: #222;
 			}
 
 			#controls button:hover {
@@ -572,6 +613,13 @@
 			}
 		}
 
+		function toggleControls(toggleButton) {
+			let controls = document.getElementById("controls")
+			let isVisible = (controls.style.display != "none")
+			controls.style.display = isVisible ? "none" : "block"
+			toggleButton.classList.toggle("checked")
+		}
+
 		window.addEventListener('load', function() {
 			reset(false)
 			loadAvatars()
@@ -579,7 +627,17 @@
 	</script>
 </head>
 <body>
-	<button id="reset" onclick="reset(true)">Сброс</button>
+	<table id="top-controls">
+		<tr>
+			<td></td>
+			<td>
+				<button id="reset" onclick="reset(true)">Сброс</button>
+			</td>
+			<td>
+				<button id="toggle-controls" onclick="toggleControls(this)" title="Скрыть кнопки">±</button>
+			</td>
+		</tr>
+	</table>
 
 	<table id="main" cellspacing="0">
 		<tbody id="questions">
