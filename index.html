@@ -536,7 +536,7 @@
 			if(cell == undefined) {
 				return
 			}
-			let sign = multiplier > 0 ? "+" : "−"
+			let sign = multiplier > 0 ? "＋" : "－"
 			let answerDescription = sign + (question + 1) * Math.abs(multiplier) * 10
 			let answerClass = multiplier > 0 ? "positive" : "negative"
 			cell.innerHTML = multiplier != 0 ? answerDescription : ""
@@ -545,14 +545,9 @@
 			updateTotals(player)
 		}
 
-		function formatTotal(total, hardEarned) {
-			if(total > 0) {
-				return total
-			} else if(total < 0) {
-				return "−" + Math.abs(total)
-			} else {
-				return hardEarned ? "+0" : "0"
-			}
+		function formatTotal(total, showSign) {
+			var sign = total >= 0 ? "＋" : "－"
+			return (showSign ? (sign) : "") + Math.abs(total)
 		}
 
 		function updateTotals(player) {
@@ -571,13 +566,13 @@
 			let numberOfCorrectAnswers = answers[player].filter(s => s > 0).length
 
 			let grandTotalCell = document.querySelector("tr#grand-total td[data-player='" + player + "']")
-			grandTotalCell.innerHTML = formatTotal(grandTotal, numberOfGivenAnswers > 0)
+			grandTotalCell.innerHTML = formatTotal(grandTotal, grandTotal <= 0 && numberOfGivenAnswers > 0)
 
 			let positiveTotalCell = document.querySelector("tr#positive-total td[data-player='" + player + "']");
-			positiveTotalCell.innerHTML = formatTotal(positiveTotal)
+			positiveTotalCell.innerHTML = formatTotal(positiveTotal, positiveTotal != 0)
 
 			let negativeTotalCell = document.querySelector("tr#negative-total td[data-player='" + player + "']");
-			negativeTotalCell.innerHTML = formatTotal(negativeTotal)
+			negativeTotalCell.innerHTML = formatTotal(negativeTotal, negativeTotal != 0)
 
 			let answerRatioCell = document.querySelector("tr#answer-ratio td[data-player='" + player + "']")
 			answerRatioCell.innerHTML = numberOfGivenAnswers > 0 ? (numberOfCorrectAnswers + ' / ' + numberOfGivenAnswers) : "—"
@@ -661,14 +656,14 @@
 				<td data-player="3"></td>
 			</tr>
 			<tr id="positive-total" class="stats">
-				<td>+</td>
+				<td>＋</td>
 				<td data-player="0"></td>
 				<td data-player="1"></td>
 				<td data-player="2"></td>
 				<td data-player="3"></td>
 			</tr>
 			<tr id="negative-total" class="stats">
-				<td>−</td>
+				<td>－</td>
 				<td data-player="0"></td>
 				<td data-player="1"></td>
 				<td data-player="2"></td>
