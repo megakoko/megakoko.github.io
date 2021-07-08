@@ -347,11 +347,64 @@
 		}
 	</style>
 	<script type="text/javascript">
+		function isRussian() {
+			return navigator.language.startsWith("ru")
+		}
+
+		function pageTitle() {
+			if (isRussian()) {
+				return "Свояк — Счет"
+			} else {
+				return "Svoyak Score Sheet"
+			}
+		}
+
+		function toggleControlTooltip() {
+			if (isRussian()) {
+				return "Скрыть кнопки"
+			} else {
+				return "Hide buttons"
+			}
+		}
+
+		function resetName() { 
+			if (isRussian()) {
+				return "Сброс"
+			} else {
+				return "Reset"
+			}
+		}
+
+		function resetMessage() { 
+			if (isRussian()) {
+				return "Вы уверены, что хотите сбросить счет?"
+			} else {
+				return "Are you sure you want to reset the score?"
+			}
+		}
+		
+		function playerName(number) { 
+			if (isRussian()) {
+				return "Игрок " + number
+			} else {
+				return "Player " + number
+			}
+		}
+
+		function subjectName(number) {
+			if (isRussian()) {
+				return "Тема " + number
+			} else {
+				return "Category " + number
+			}
+		}
+	</script>
+	<script type="text/javascript">
 		var answers = []
 		var numberOfSubjects = 0
 
 		function reset(needConfirmation) {
-			if(needConfirmation && !confirm("Вы уверены, что хотите сбросить счет?")) {
+			if(needConfirmation && !confirm(resetMessage())) {
 				return
 			}
 
@@ -368,7 +421,7 @@
 
 			let playerNameInputs = document.querySelectorAll("input[data-player]")
 			for(let player = 0; player < playerNameInputs.length; ++player) {
-				playerNameInputs[player].value = 'Игрок ' + (player+1)
+				playerNameInputs[player].value = playerName(player+1)
 			}
 
 			addSubject()
@@ -386,7 +439,7 @@
 			td.setAttribute("colSpan", 5)
 			subjectHeader.appendChild(td)
 			var p = document.createElement("p")
-			p.innerHTML = "Тема " + (subject+1)
+			p.innerHTML = subjectName(subject+1)
 			td.appendChild(p)
 
 			// Subject questions
@@ -628,6 +681,9 @@
 		window.addEventListener('load', function() {
 			reset(false)
 			loadAvatars()
+			document.title = pageTitle()
+			document.getElementById("reset").innerHTML = resetName()
+			document.getElementById("toggle-controls").title = toggleControlTooltip()
 		})
 	</script>
 </head>
@@ -636,10 +692,10 @@
 		<tr>
 			<td></td>
 			<td>
-				<button id="reset" onclick="reset(true)">Сброс</button>
+				<button id="reset" onclick="reset(true)"></button>
 			</td>
 			<td>
-				<button id="toggle-controls" onclick="toggleControls(this)" title="Скрыть кнопки">±</button>
+				<button id="toggle-controls" onclick="toggleControls(this)">±</button>
 			</td>
 		</tr>
 	</table>
